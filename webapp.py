@@ -96,6 +96,14 @@ def authorized():
     return render_template('message.html', message=message)
 
 
+@app.route('/button_press')
+def button_press():
+    number = request.form("number")
+    return number
+
+
+
+
 @app.route('/page1')
 def renderPage1():
     if 'user_data' in session:
