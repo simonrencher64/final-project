@@ -1,7 +1,18 @@
-body {
 
+
+.button{
+	display: inline-block;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	margin-left: 1px;
+	margin-right: 1px;
+	
+	width: 5%;
+	aspect-ratio : 1 / 1;
+	
+    border: 3px solid white;
 }
 
-#content {
-     margin-left: 20px;
+.center{
+	text-Align: center;
 }
