@@ -3,16 +3,35 @@
 .button{
 	display: inline-block;
 	margin-top: 1px;
-	margin-bottom: 1px;
+	margin-bottom: 15px;
 	margin-left: 1px;
 	margin-right: 1px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #04AA6D;
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 9px #999;
+	
 	
 	width: 5%;
 	aspect-ratio : 1 / 1;
 	
-    border: 3px solid white;
+    /* border: 3px solid white; */
 }
+.button:hover {background-color: #3e8e41}
 
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+/* .button:hover { */
+  /* background-color: #555555; */
+  /* color: white; */
 .center{
 	text-Align: center;
 }
