@@ -96,10 +96,12 @@ def authorized():
     return render_template('message.html', message=message)
 
 
-@app.route('/button_press')
+@app.route('/button_press', methods=['POST'])
 def button_press():
-    number = request.form("number")
-    return number
+    print(request.form)
+    #number = request.form("number")
+    print('hi')
+    return "hi"
 
 
 
