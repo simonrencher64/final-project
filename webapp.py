@@ -44,7 +44,7 @@ db_name = os.environ["MONGO_DBNAME"]
 
 client = pymongo.MongoClient(connection_string)
 db = client[db_name]
-collection = db['threads'] #1. put the name of your collection in the quotes
+collection = db['numbers'] #1. put the name of your collection in the quotes
  
 # Send a ping to confirm a successful connection
 try:
@@ -98,10 +98,20 @@ def authorized():
 
 @app.route('/button_press', methods=['POST'])
 def button_press():
+    #print('debug')
+    strNumber = request.form.get("number")
     
-    number = request.form.get("number")
+    number = int(strNumber)
     
-    return number
+    myquery = { "number": number }
+    
+    doc = collection.find(myquery)
+    
+    
+    for i in doc:
+        print(i)
+    
+    return strNumber
 
 
 
