@@ -98,18 +98,22 @@ def authorized():
 
 @app.route('/button_press', methods=['POST'])
 def button_press():
-    #print('debug')
     strNumber = request.form.get("number")
-    
     number = int(strNumber)
     
-    myquery = { "number": number }
+    docQuery = { "number": number }
     
-    doc = collection.find(myquery)
+    docID = ''
+    docScore = 0
     
+    for i in collection.find(docQuery):
+        docID = i['_id']
+        docScore = i['score']
     
-    for i in doc:
-        print(i)
+    idQuery = { "_id": docID }
+    newvalues = { "$set": { "score": docScore+1 } }
+    
+    collection.update_one(idQuery, newvalues)
     
     return strNumber
 

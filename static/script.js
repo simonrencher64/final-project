@@ -7,7 +7,7 @@ $(document).ready(function(){
       number: $(this).attr('id')
     },
     function(data,status){
-      alert("Data: " + data + "\nStatus: " + status);
+      
     });
   });
 });
