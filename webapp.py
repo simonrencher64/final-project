@@ -98,10 +98,10 @@ def authorized():
 
 @app.route('/button_press', methods=['POST'])
 def button_press():
-    print(request.form)
-    #number = request.form("number")
-    print('hi')
-    return "hi"
+    
+    number = request.form.get("number")
+    
+    return number
 
 
 
