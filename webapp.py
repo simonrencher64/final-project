@@ -124,6 +124,13 @@ def button_press():
     return strNumber
 
 
+@app.route('/get_collection_data')
+def get_collection_data():
+    data = []
+    for i in collection.find():
+        data.append(i['score'])
+    
+    return data
 
 
 @app.route('/page1')
