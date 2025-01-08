@@ -94,7 +94,13 @@ def authorized():
             print(inst)
             message='Unable to login, please try again.  '
     return render_template('message.html', message=message)
-
+@app.route('/login_button_press', methods=['POST'])
+def login_button_press():
+    if 'user_data' in session:
+        return button_press()
+    else:
+        message = 'Please log in before posting.'
+        return render_template('message.html', message=message)
 
 @app.route('/button_press', methods=['POST'])
 def button_press():
