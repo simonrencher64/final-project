@@ -20,5 +20,10 @@ $(document).ready(function(){
     function(data,status){
       
     });
+	
+	var value = Number($(this).children().text());
+	value += 1;
+	$(this).children().text(value);
+	
   });
 });
