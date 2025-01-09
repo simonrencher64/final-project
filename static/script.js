@@ -30,7 +30,10 @@ $(document).ready(function(){
 			url: "/get_collection_data",
 			success: function(data) {
 				for(var i=0; i < 101; i++){
-					$("#"+i).children().text(data[i-1]);
+					if(data[i-1] >= $("#"+i).children().text()){
+						$("#"+i).children().text(data[i-1]);
+					}
+					
 				}
 			}
 		});
