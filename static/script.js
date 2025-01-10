@@ -8,20 +8,16 @@ $(document).ready(function(){
 	});
 	
 	$("button").click(function(){
-		$.post("/button_press",
-		{
-			number: $(this).attr('id')
-		},
-	
-		function(data,status){
-			
+		$.ajax({
+			type: 'POST',
+			url: "/button_press",
+			data: { number: $(this).attr('id') },
+			success: function(data) {
+				var value = Number($(this).children().text());
+				value += 1;
+				$(this).children().text(value);
+			}
 		});
-		
-		var value = Number($(this).children().text());
-		value += 1;
-		$(this).children().text(value);
-		
-		
 	});
 	
 	setInterval(function() {

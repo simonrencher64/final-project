@@ -123,7 +123,7 @@ def button_press():
     
     collection.update_one(idQuery, newvalues)
     
-    return strNumber
+    return jsonify(strNumber)
 
 
 @app.route('/get_collection_data', methods=['GET'])
