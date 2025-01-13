@@ -38,6 +38,7 @@ github = oauth.remote_app(
     authorize_url='https://github.com/login/oauth/authorize' #URL for github's OAuth login
 )
 
+admin_list = ['simonrencher64']
 
 connection_string = os.environ["MONGO_CONNECTION_STRING"]
 db_name = os.environ["MONGO_DBNAME"]
@@ -86,6 +87,11 @@ def authorized():
         try:
             session['github_token'] = (resp['access_token'], '') #save the token to prove that the user logged in
             session['user_data']=github.get('user').data
+            if session['user_data']['login'] in admin_list:
+                session['is_admin'] = True
+            else:
+                session['is_admin'] = False
+            print(session['is_admin'])
             #pprint.pprint(vars(github['/email']))
             #pprint.pprint(vars(github['api/2/accounts/profile/']))
             message='You were successfully logged in as ' + session['user_data']['login'] + '.'
@@ -143,13 +149,24 @@ def get_collection_data():
 
 @app.route('/check_loggin', methods=['GET'])
 def check_loggin():
-    data = False
+    data = {}
     if 'user_data' in session:
-        data = True
-        
+        data['logged_in'] = True
+    if session['is_admin']:
+        data['is_admin'] = True
     
     return jsonify(data)
 
+@app.route('/clear_all', methods=['POST'])
+def clear_all():
+    if session['is_admin'] == True:
+        for i in collection.find():
+            idQuery = { "_id": i['_id'] }
+            newvalues = { "$set": { "score": 0 } }
+            collection.update_one(idQuery, newvalues)
+            
+    
+    return 'what'
 
 @app.route('/page1')
 def renderPage1():
