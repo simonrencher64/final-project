@@ -11,10 +11,30 @@ $(document).ready(function(){
 		type: 'GET',
 		url: "/check_loggin",
 		success: function(data) {
-			if(data == true){
+			if(data["is_admin"] == true){
+				$('.adminTool').css('display', 'block'); 
+			}
+		}
+	});
+	
+	$.ajax({
+		type: 'GET',
+		url: "/check_loggin",
+		success: function(data) {
+			if(data["logged_in"] == true){
 				$(".button").addClass("clickable");
 			}
 		}
+	});
+	
+	$('#clearAll').click(function(){
+		$.ajax({
+			type: 'POST',
+			url: "/clear_all",
+			success: function() {
+				$('.button').children().text('0');
+			}
+		});
 	});
 	
 	$('.button').click(function(){
