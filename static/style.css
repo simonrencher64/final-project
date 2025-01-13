@@ -6,7 +6,7 @@
 	margin-bottom: 15px;
 	margin-left: 1px;
 	margin-right: 1px;
-	cursor: pointer;
+	/*cursor: pointer;*/
 	text-align: center;
 	text-decoration: none;
 	outline: none;
@@ -22,9 +22,14 @@
 	
     /* border: 3px solid white; */
 }
-.button:hover {background-color: #3e8e41}
 
-.button:active {
+.clickable{
+	
+}
+
+.clickable:hover {background-color: #3e8e41}
+
+.clickable:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
@@ -39,3 +44,4 @@
 .scoreDisplay{
 	font-size: 20px;
 }
+

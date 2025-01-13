@@ -7,17 +7,31 @@ $(document).ready(function(){
 		}
 	});
 	
-	$("button").click(function(){
-		$.ajax({
-			type: 'POST',
-			url: "/button_press",
-			data: { number: $(this).attr('id') },
-			success: function(data) {
-				var value = Number($(this).children().text());
-				value += 1;
-				$(this).children().text(value);
+	$.ajax({
+		type: 'GET',
+		url: "/check_loggin",
+		success: function(data) {
+			if(data == true){
+				$(".button").addClass("clickable");
 			}
-		});
+		}
+	});
+	
+	$('.button').click(function(){
+		if($(this).hasClass('clickable')) {
+			$.ajax({
+				type: 'POST',
+				url: "/button_press",
+				data: { number: $(this).attr('id') },
+				success: function(data) {
+					
+				}
+			});
+			
+			var value = Number($(this).children().text());
+			value += 1;
+			$(this).children().text(value);
+		}
 	});
 	
 	setInterval(function() {

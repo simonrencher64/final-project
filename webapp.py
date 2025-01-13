@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, session, request, jsonify
+from flask import Flask, redirect, url_for, session, request, jsonify, flash
 from flask_oauthlib.client import OAuth
 #from flask_oauthlib.contrib.apps import github #import to make requests to GitHub's OAuth
 from flask import render_template
@@ -106,24 +106,29 @@ def login_button_press():
 
 @app.route('/button_press', methods=['POST'])
 def button_press():
-    strNumber = request.form.get("number")
-    number = int(strNumber)
-    
-    docQuery = { "number": number }
-    
-    docID = ''
-    docScore = 0
-    
-    for i in collection.find(docQuery):
-        docID = i['_id']
-        docScore = i['score']
-    
-    idQuery = { "_id": docID }
-    newvalues = { "$set": { "score": docScore+1 } }
-    
-    collection.update_one(idQuery, newvalues)
-    
-    return jsonify(strNumber)
+    if 'user_data' in session:
+        strNumber = request.form.get("number")
+        number = int(strNumber)
+        
+        docQuery = { "number": number }
+        
+        docID = ''
+        docScore = 0
+        
+        for i in collection.find(docQuery):
+            docID = i['_id']
+            docScore = i['score']
+        
+        idQuery = { "_id": docID }
+        newvalues = { "$set": { "score": docScore+1 } }
+        
+        collection.update_one(idQuery, newvalues)
+        
+        return jsonify('true')
+    else:
+        
+        
+        return jsonify('false')
 
 
 @app.route('/get_collection_data', methods=['GET'])
@@ -136,6 +141,14 @@ def get_collection_data():
     return jsonify(data)
 
 
+@app.route('/check_loggin', methods=['GET'])
+def check_loggin():
+    data = False
+    if 'user_data' in session:
+        data = True
+        
+    
+    return jsonify(data)
 
 
 @app.route('/page1')
