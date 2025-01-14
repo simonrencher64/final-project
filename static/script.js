@@ -103,6 +103,9 @@ $(document).ready(function(){
 				for(var i=0; i < 101; i++){
 					if(data[i-1] >= $("#"+i).children().text()){
 						$("#"+i).children().text(data[i-1]);
+						
+						var rgbdata = get_color(data[i-1]);
+						$("#"+i).css('background-color', 'rgb(' + rgbdata[0] + "," + rgbdata[1] + "," + rgbdata[2] + ")");
 					}
 					
 				}
@@ -114,12 +117,14 @@ $(document).ready(function(){
 
 
 function get_color(value) {
-	let dist = 100;
+	let dist = 500;
 	let rgbdata = [0,0,0];
     if(value <= dist){
 		rgbdata = [255, 200 - 200*(value/dist),0];
+	} else if(value > dist && value < dist * 2) {
+		rgbdata = [255 - 255*((value-dist)/dist),0,0];
 	} else {
-		rgbdata = [255,0,0];
+		rgbdata = [0,0,0];
 	}
     return rgbdata;
 }
