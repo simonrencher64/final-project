@@ -117,7 +117,7 @@ function get_color(value) {
 	let dist = 100;
 	let rgbdata = [0,0,0];
     if(value <= dist){
-		rgbdata = [255, 255 - 255*(value/dist),0];
+		rgbdata = [255, 200 - 200*(value/dist),0];
 	} else {
 		rgbdata = [255,0,0];
 	}
