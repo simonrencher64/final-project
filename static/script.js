@@ -4,6 +4,9 @@ $(document).ready(function(){
 	$.get('/get_collection_data', function(data) {
 		for(var i=0; i < 101; i++){
 			$("#"+i).children().text(data[i-1]);
+			
+			var rgbdata = get_color(data[i-1]);
+			$("#"+i).css('background-color', 'rgb(' + rgbdata[0] + "," + rgbdata[1] + "," + rgbdata[2] + ")");
 		}
 	});
 	
@@ -50,6 +53,14 @@ $(document).ready(function(){
 			
 			var value = Number($(this).children().text());
 			value += 1;
+			$(this).children().text(value);
+			
+			var rgbdata = get_color(value);
+			$(this).css('background-color', 'rgb(' + rgbdata[0] + "," + rgbdata[1] + "," + rgbdata[2] + ")");
+			
+			
+			
+			/*
 			if(value >= 10 && value < 25){
 				$(this).css('background-color', '#ADD8E6')
 			}
@@ -78,7 +89,8 @@ $(document).ready(function(){
 				$(this).css('background-color', '#191970')
 			}
 			else{$(this).css('background-color', '#5F9EA0 ')}
-			$(this).children().text(value);
+			*/
+			
 			
 		}
 	});
@@ -98,3 +110,16 @@ $(document).ready(function(){
 		});
 	}, 1000); //one second
 });
+
+
+
+function get_color(value) {
+	let dist = 100;
+	let rgbdata = [0,0,0];
+    if(value <= dist){
+		rgbdata = [255, 255 - 255*(value/dist),0];
+	} else {
+		rgbdata = [255,0,0];
+	}
+    return rgbdata;
+}

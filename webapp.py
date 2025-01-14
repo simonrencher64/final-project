@@ -168,6 +168,9 @@ def clear_all():
     
     return 'what'
 
+
+
+
 @app.route('/page1')
 def renderPage1():
     if 'user_data' in session:
