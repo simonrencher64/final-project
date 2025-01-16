@@ -152,8 +152,8 @@ def check_loggin():
     data = {}
     if 'user_data' in session:
         data['logged_in'] = True
-    if session['is_admin']:
-        data['is_admin'] = True
+        if session['is_admin']:
+            data['is_admin'] = True
     
     return jsonify(data)
 

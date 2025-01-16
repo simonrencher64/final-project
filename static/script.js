@@ -1,14 +1,36 @@
 
 
 $(document).ready(function(){
+	var scores = {};
+	
+	
 	$.get('/get_collection_data', function(data) {
 		for(var i=0; i < 101; i++){
 			$("#"+i).children().text(data[i-1]);
 			
 			var rgbdata = get_color(data[i-1]);
 			$("#"+i).css('background-color', 'rgb(' + rgbdata[0] + "," + rgbdata[1] + "," + rgbdata[2] + ")");
+			
+			
+		}
+		
+		var scorelist = [];
+		for(var i = 0; i < 100; i++){
+			scorelist.push([i+1,data[i]]);
+		}
+		
+		scorelist.sort((a, b) => b[1] - a[1]);
+		
+		console.log(scorelist);
+		
+		for(var i=0; i < 101; i++){
+			console.log(i);
+			$("#s"+String(i+1)).text(scorelist[i][0] + ", " + scorelist[i][1]);
 		}
 	});
+	
+	
+	
 	
 	$.ajax({
 		type: 'GET',
