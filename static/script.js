@@ -3,7 +3,6 @@
 $(document).ready(function(){
 	var scores = {};
 	
-	
 	$.get('/get_collection_data', function(data) {
 		for(var i=0; i < 101; i++){
 			$("#"+i).children().text(data[i-1]);
@@ -21,21 +20,30 @@ $(document).ready(function(){
 		
 		scorelist.sort((a, b) => b[1] - a[1]);
 		
-		console.log(scorelist);
-		
-		for(var i=0; i < 101; i++){
-			console.log(i);
-			$("#s"+String(i+1)).text(scorelist[i][0] + ", " + scorelist[i][1]);
+		for(var i=0; i < 100; i++){
+			$("#s"+String(i+1)).text("#" + (i+1) + " - " + scorelist[i][0] + " - Score: " + scorelist[i][1]);
+			if(i == 0){
+				$("#s"+String(i+1)).css('fontSize', '30px');
+				$("#s"+String(i+1)).css('color', 'rgb(255,0,0)');
+			} else if(i == 1){
+				$("#s"+String(i+1)).css('fontSize', '27px');
+				$("#s"+String(i+1)).css('color', 'rgb(255,50,0)');
+			} else if(i == 2){
+				$("#s"+String(i+1)).css('fontSize', '24px');
+				$("#s"+String(i+1)).css('color', 'rgb(255,100,0)');
+			} else {
+				$("#s"+String(i+1)).css('color', 'rgb(255,150,0)');
+			}
 		}
 	});
-<<<<<<< HEAD
+
 	
 	
 	
 	
-=======
+
 	var logged_in = false;
->>>>>>> bdcaac67d4a4358b68b18ff3ba1fadd7027f5684
+
 	$.ajax({
 		type: 'GET',
 		url: "/check_loggin",
