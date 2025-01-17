@@ -1,15 +1,49 @@
 
 
 $(document).ready(function(){
+	var scores = {};
+	
 	$.get('/get_collection_data', function(data) {
 		for(var i=0; i < 101; i++){
 			$("#"+i).children().text(data[i-1]);
 			
 			var rgbdata = get_color(data[i-1]);
 			$("#"+i).css('background-color', 'rgb(' + rgbdata[0] + "," + rgbdata[1] + "," + rgbdata[2] + ")");
+			
+			
+		}
+		
+		var scorelist = [];
+		for(var i = 0; i < 100; i++){
+			scorelist.push([i+1,data[i]]);
+		}
+		
+		scorelist.sort((a, b) => b[1] - a[1]);
+		
+		for(var i=0; i < 100; i++){
+			$("#s"+String(i+1)).text("#" + (i+1) + " - " + scorelist[i][0] + " - Score: " + scorelist[i][1]);
+			if(i == 0){
+				$("#s"+String(i+1)).css('fontSize', '30px');
+				$("#s"+String(i+1)).css('color', 'rgb(255,0,0)');
+			} else if(i == 1){
+				$("#s"+String(i+1)).css('fontSize', '27px');
+				$("#s"+String(i+1)).css('color', 'rgb(255,50,0)');
+			} else if(i == 2){
+				$("#s"+String(i+1)).css('fontSize', '24px');
+				$("#s"+String(i+1)).css('color', 'rgb(255,100,0)');
+			} else {
+				$("#s"+String(i+1)).css('color', 'rgb(255,150,0)');
+			}
 		}
 	});
+
+	
+	
+	
+	
+
 	var logged_in = false;
+
 	$.ajax({
 		type: 'GET',
 		url: "/check_loggin",
