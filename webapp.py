@@ -116,29 +116,25 @@ def login_button_press():
 
 @app.route('/button_press', methods=['POST'])
 def button_press():
-    if 'user_data' in session:
-        strNumber = request.form.get("number")
-        number = int(strNumber)
-        
-        docQuery = { "number": number }
-        
-        docID = ''
-        docScore = 0
-        
-        for i in collection.find(docQuery):
-            docID = i['_id']
-            docScore = i['score']
-        
-        idQuery = { "_id": docID }
-        newvalues = { "$set": { "score": docScore+1 } }
-        
-        collection.update_one(idQuery, newvalues)
-        
-        return jsonify('true')
-    else:
-        
-        
-        return jsonify('false')
+    
+    strNumber = request.form.get("number")
+    number = int(strNumber)
+    
+    docQuery = { "number": number }
+    
+    docID = ''
+    docScore = 0
+    
+    for i in collection.find(docQuery):
+        docID = i['_id']
+        docScore = i['score']
+    
+    idQuery = { "_id": docID }
+    newvalues = { "$set": { "score": docScore+1 } }
+    
+    collection.update_one(idQuery, newvalues)
+    
+    return jsonify('true')
 
 
 @app.route('/get_collection_data', methods=['GET'])
